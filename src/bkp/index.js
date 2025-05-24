@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../pages/index.css"
-import Player from "../pages/player";  
 
 
 export default function Home() {
@@ -117,33 +116,12 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [playerUrl, setPlayerUrl] = useState(null);
-
-  const [hideThumbnail, setHideThumbnail] = useState(false);
-
-  const openPlayer = (url) => {
-    setPlayerUrl(url);
-    setHideThumbnail(true);  // Esconde a thumbnail ao abrir o player
-  };
-
-  const closePlayer = () => {
-    setPlayerUrl(null);
-    setHideThumbnail(false); // Mostra a thumbnail ao fechar o player
-  };
-
-
-  const openPopup = (url) => {
-  window.open(url, "_blank", "width=800,height=600");
-  };
 
 
   return (
     <>
       <div className="Container">
         <h1>Lista de Vídeos</h1>
-
-        {playerUrl && <Player videoUrl={playerUrl} closePlayer={closePlayer} />}
-
         <div className="begin">          
           <div className="SearchWrapper">
             <input className="Search" placeholder="🔍 Search" onChange={handleSearch} value={searchVideo} />
@@ -156,69 +134,65 @@ export default function Home() {
             <p>Nenhum vídeo encontrado...</p>
           ) : (
             filteredVideos.map((video) => (
-            <div className="VideoItem" key={video.id}>
-              {editVideo.id === video.id ? (
-                <>
-                  <div className="EditContainer">
-                    <span>Título</span>
-                    <input
-                      type="text"
-                      value={editVideo.title}
-                      onChange={(e) => setEditVideo({ ...editVideo, title: e.target.value })}
-                    />
-                  </div>
-                  <div className="EditContainer">
-                    <span>Descrição: </span>
-                    <input
-                      type="text"
-                      value={editVideo.description}
-                      onChange={(e) => setEditVideo({ ...editVideo, description: e.target.value })}
-                    />
-                  </div>
-                  <div className="EditContainer">
-                    <span>Link: </span>
-                    <input
-                      type="text"
-                      value={editVideo.link}
-                      onChange={(e) => setEditVideo({ ...editVideo, link: e.target.value })}
-                    />
-                  </div>
-                  <div className="EditContainer">
-                    <span>Thumbnail: </span>
-                    <input
-                      type="text"
-                      value={editVideo.thumbnail}
-                      onChange={(e) => setEditVideo({ ...editVideo, thumbnail: e.target.value })}
-                    />
-                  </div>
-                  <div className="EditContainer">
-                    <span>Duração: </span>
-                    <input
-                      type="text"
-                      value={editVideo.duration}
-                      onChange={(e) => setEditVideo({ ...editVideo, duration: e.target.value })}
-                    />
-                  </div>
-                  <button className="view" onClick={handleUpdate}>Salvar Alterações</button>
-                </>
-              ) : (
-                <>
-                  <h2>{video.title}</h2>
-                  <p className="desc">{video.description}</p>
-                  <div className="ThumbnailWrapper" style={{ display: hideThumbnail ? "none" : "block" }}>
+              <div className="VideoItem" key={video.id}>
+                {editVideo.id === video.id ? (
+                  <>
+                    <div className="EditContainer">
+                      <span>Título</span>
+                      <input
+                        type="text"
+                        value={editVideo.title}
+                        onChange={(e) => setEditVideo({ ...editVideo, title: e.target.value })}
+                      />
+                    </div>
+                    <div className="EditContainer">
+                      <span>Descrição: </span>
+                      <input
+                        type="text"
+                        value={editVideo.description}
+                        onChange={(e) => setEditVideo({ ...editVideo, description: e.target.value })}
+                      />
+                    </div>
+                    <div className="EditContainer">
+                      <span>Link: </span>
+                      <input
+                        type="text"
+                        value={editVideo.link}
+                        onChange={(e) => setEditVideo({ ...editVideo, link: e.target.value })}
+                      />
+                    </div>
+                    <div className="EditContainer">
+                      <span>Thumbnail: </span>
+                      <input
+                        type="text"
+                        value={editVideo.thumbnail}
+                        onChange={(e) => setEditVideo({ ...editVideo, thumbnail: e.target.value })}
+                      />
+                    </div>
+                    <div className="EditContainer">
+                      <span>Duração: </span>
+                      <input
+                        type="text"
+                        value={editVideo.duration}
+                        onChange={(e) => setEditVideo({ ...editVideo, duration: e.target.value })}
+                      />
+                    </div>
+                    <button className="view" onClick={handleUpdate}>Salvar Alterações</button>
+                  </>
+                ) : (
+                  <>
+                    <h2>{video.title}</h2>
+                    <p className="desc">{video.description}</p>
                     <img src={video.thumbnail} alt={video.title} />
-                    <button className="playButton" onClick={() => openPlayer(video.link)}>▶️</button>
-                  </div>
-                  <p>Duração: {formatTime(video.duration)}</p>
-                  <div className="ButtonContainer">
-                    <button className="delete" onClick={() => handleDelete(video.id)}>🗑 Deletar</button>
-                    <button className="view" onClick={() => window.open(video.link, "_blank")}>🎬 Assistir no YouTube</button>
-                    <button className="edit" onClick={() => handleEdit(video)}>✏️ Editar</button>
-                  </div>
-                </>
-              )}
-            </div>
-
+                    <p>Duração: {formatTime(video.duration)}</p>
+                    <div className="ButtonContainer">
+                      <button className="delete" onClick={() => handleDelete(video.id)}>🗑 Deletar</button>
+                      <button className="view" onClick={() => window.open(video.link, "_blank")}>Assistir no YouTube</button>
+                      <button className="edit" onClick={() => handleEdit(video)}>✏️ Editar</button>
+                    </div>
+                  </>
+                )}
+              </div>
             ))
           )}
         </div>
