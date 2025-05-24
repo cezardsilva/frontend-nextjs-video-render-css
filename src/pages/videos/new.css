@@ -1,0 +1,59 @@
+body {
+    background: #000;
+    color: #fff;
+}
+.Container {
+    margin: auto;
+
+    h1 {
+        text-align: center;
+        color: #ffffff;
+        font-size: 2rem;
+    }
+}
+
+form {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+input {
+    width: 380px;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 400px;
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+
+.BackToHome {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.BackToHome:hover {
+    color: #ccc;
+}
