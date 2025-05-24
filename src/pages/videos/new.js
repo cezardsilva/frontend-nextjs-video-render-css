@@ -49,8 +49,35 @@ export default function CreateVideo() {
           <input type="text" placeholder="Título" onChange={(e) => setForm({ ...form, title: e.target.value })} />
           <input type="text" placeholder="Descrição" onChange={(e) => setForm({ ...form, description: e.target.value })} />
           <input type="text" placeholder="Link do vídeo" onChange={(e) => setForm({ ...form, link: e.target.value })} />
-          <input type="text" placeholder="Imagem Thumbnail" onChange={(e) =>  setForm({ ...form, thumbnail: `https://img.youtube.com/vi/${e.target.value}/0.jpg`})} />
-          <input type="number" placeholder="Duração (segundos)" onChange={(e) => setForm({ ...form, duration: e.target.value })} />
+          <input
+            type="text"
+            placeholder="Imagem Thumbnail"
+            onChange={(e) => {
+              const link = form.link; // Pegamos o valor do link do vídeo
+              setForm({
+                ...form,
+                thumbnail: link.includes("yout")
+                  ? `https://img.youtube.com/vi/${e.target.value}/0.jpg`
+                  : e.target.value, // Se não for do YouTube, apenas salva o valor inserido
+              });
+            }}
+          />
+          <input
+            type="text"
+            placeholder="Duração (hh:mm:ss)"
+            onChange={(e) => setForm({ ...form, duration: e.target.value })} // Apenas captura o valor
+            onBlur={(e) => { // Valida apenas quando o usuário sai do campo
+              const value = e.target.value;
+              const [hours, minutes, seconds] = value.split(":").map(Number); // Converte para números
+
+              if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+                alert("Formato inválido! Use hh:mm:ss");
+              } else {
+                const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+                setForm({ ...form, duration: totalSeconds });
+              }
+            }}
+          />
           <button type="submit">Criar</button>
         </form>
       </div>

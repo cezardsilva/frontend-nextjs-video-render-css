@@ -13,13 +13,43 @@ h1 {
     font-size: 2rem;
 }
 
+.begin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Search {
+    position: relative;
+    background: #000;
+    color: #fff;
+    border: #979797 solid 1px;
+    border-radius: 5px;
+    width: 200px;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.clear {
+    position: absolute;
+    right: 15px; /* Ajuste fino para posicionamento correto */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #757575;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}
+
+.SearchWrapper {
+    position: relative; /* Criando um container para facilitar o posicionamento do ícone */
+    display: inline-block;
+}
+
 .AddVideoLink {
+    margin-left: auto; /* Mantém no canto direito */
     color: #ffffff;
     text-decoration: none;
     font-weight: bold;
-    display: block;
-    text-align: right;
-    margin-right: 20px;
 }
 
 .AddVideoLink:hover {
@@ -80,7 +110,6 @@ button {
     border: none;
     width: 200px;
     height: 50px;
-    /* Corrigindo aqui! */
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
@@ -118,9 +147,28 @@ button.edit:hover {
 
 .EditContainer {
     display: grid;
-    grid-template-columns: 120px 380px;
+    grid-template-columns: 120px 280px;
 
     span {
         text-align: left;
     }
+}
+
+.scrollTop {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  bottom: 20px;
+  right: 20px;
+  background: #303030;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50px;
+  display: none; /* Inicialmente escondido */
+}
+
+.scrollTop.show {
+  display: block; /* Exibe quando necessário */
 }
